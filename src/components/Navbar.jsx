@@ -7,6 +7,9 @@ export default function Navbar({ brand = 'App Name' }) {
       <nav>
         <Link to="/">Home</Link>
         <Link to="/about">About</Link>
+        <Link to="/trips">Trips</Link>
+        <Link to="/fuel-logs">Fuel Logs</Link>
+        <Link to="/maintenance">Maintenance</Link>
       </nav>
     </header>
   );
