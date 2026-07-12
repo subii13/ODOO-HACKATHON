@@ -1,4 +1,4 @@
-import MainFeature from './pages/MainFeature/MainFeature';
+import Trips from './pages/Trips/Trips';
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
@@ -14,7 +14,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
 
-        <Route path="/trips" element={<MainFeature />} />
+        <Route path="/trips" element={<Trips />} />
         <Route path="/fuel-logs" element={<FuelLogs />} />
         <Route path="/maintenance" element={<Maintenance />} />
 
