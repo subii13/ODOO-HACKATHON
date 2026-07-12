@@ -1,8 +1,10 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useTheme } from '../context/ThemeContext';
 
 export default function Navbar({ brand = 'App Name' }) {
   const { currentUser, logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -21,6 +23,9 @@ export default function Navbar({ brand = 'App Name' }) {
         <Link to="/trips">Trips</Link>
         <Link to="/fuel-logs">Fuel Logs</Link>
         <Link to="/maintenance">Maintenance</Link>
+        <button onClick={toggleTheme} className="btn btn-secondary">
+          {theme === 'dark' ? '☀️ Light' : '🌙 Dark'}
+        </button>
         {currentUser && (
           <button onClick={handleLogout} className="btn btn-secondary">Logout</button>
         )}

@@ -14,7 +14,7 @@ import Drivers from "./pages/MainFeature/Drivers/Drivers";
 export default function App() {
   return (
     <>
-      <Navbar brand="Team Name" />
+      <Navbar brand="TransitOps" />
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
