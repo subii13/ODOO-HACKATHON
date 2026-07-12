@@ -14,7 +14,7 @@ function canDispatchTrip(vehicle, driver, cargoWeight) {
   return '';
 }
 
-export default function MainFeature() {
+export default function Trips() {
   const [vehicles, setVehicles] = useState([]);
   const [drivers, setDrivers] = useState([]);
   const [trips, setTrips] = useState([]);
