@@ -109,101 +109,129 @@ export default function MainFeature() {
   }
 
   return (
-    <div className="trips-page">
+    <div className="page">
       <h1>Trip Management</h1>
 
-      <form onSubmit={handleCreateAndDispatch} className="trip-form">
-        <input
-          name="source"
-          placeholder="Source"
-          value={form.source}
-          onChange={handleChange}
-        />
-        <input
-          name="destination"
-          placeholder="Destination"
-          value={form.destination}
-          onChange={handleChange}
-        />
+      <div className="card mb-4">
+        <form onSubmit={handleCreateAndDispatch}>
+          <div className="form-field">
+            <label>Source</label>
+            <input
+              name="source"
+              placeholder="Source"
+              value={form.source}
+              onChange={handleChange}
+            />
+          </div>
 
-        <select name="vehicle_id" value={form.vehicle_id} onChange={handleChange}>
-          <option value="">Select vehicle</option>
-          {vehicles.map((v) => (
-            <option key={v.id} value={v.id}>
-              {v.registration_number} — {v.name} (max {v.max_load_capacity}kg)
-            </option>
-          ))}
-        </select>
+          <div className="form-field">
+            <label>Destination</label>
+            <input
+              name="destination"
+              placeholder="Destination"
+              value={form.destination}
+              onChange={handleChange}
+            />
+          </div>
 
-        <select name="driver_id" value={form.driver_id} onChange={handleChange}>
-          <option value="">Select driver</option>
-          {drivers.map((d) => (
-            <option key={d.id} value={d.id}>
-              {d.name} (license exp: {d.license_expiry})
-            </option>
-          ))}
-        </select>
+          <div className="form-field">
+            <label>Vehicle</label>
+            <select name="vehicle_id" value={form.vehicle_id} onChange={handleChange}>
+              <option value="">Select vehicle</option>
+              {vehicles.map((v) => (
+                <option key={v.id} value={v.id}>
+                  {v.registration_number} — {v.name} (max {v.max_load_capacity}kg)
+                </option>
+              ))}
+            </select>
+          </div>
 
-        <input
-          name="cargo_weight"
-          type="number"
-          placeholder="Cargo weight (kg)"
-          value={form.cargo_weight}
-          onChange={handleChange}
-        />
-        <input
-          name="planned_distance"
-          type="number"
-          placeholder="Planned distance (km)"
-          value={form.planned_distance}
-          onChange={handleChange}
-        />
+          <div className="form-field">
+            <label>Driver</label>
+            <select name="driver_id" value={form.driver_id} onChange={handleChange}>
+              <option value="">Select driver</option>
+              {drivers.map((d) => (
+                <option key={d.id} value={d.id}>
+                  {d.name} (license exp: {d.license_expiry})
+                </option>
+              ))}
+            </select>
+          </div>
 
-        {error && <p className="form-error">{error}</p>}
+          <div className="form-field">
+            <label>Cargo Weight (kg)</label>
+            <input
+              name="cargo_weight"
+              type="number"
+              placeholder="Cargo weight (kg)"
+              value={form.cargo_weight}
+              onChange={handleChange}
+            />
+          </div>
 
-        <button type="submit">Create &amp; Dispatch</button>
-      </form>
+          <div className="form-field">
+            <label>Planned Distance (km)</label>
+            <input
+              name="planned_distance"
+              type="number"
+              placeholder="Planned distance (km)"
+              value={form.planned_distance}
+              onChange={handleChange}
+            />
+          </div>
+
+          {error && <p className="form-error">{error}</p>}
+
+          <button type="submit" className="btn btn-primary">Create &amp; Dispatch</button>
+        </form>
+      </div>
 
       <h2>Trips</h2>
-      <table className="trips-table">
-        <thead>
-          <tr>
-            <th>Route</th>
-            <th>Vehicle</th>
-            <th>Driver</th>
-            <th>Cargo</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {trips.map((t) => {
-            const vehicle = getAll('vehicles').find((v) => v.id === t.vehicle_id);
-            const driver = getAll('drivers').find((d) => d.id === t.driver_id);
-            return (
-              <tr key={t.id}>
-                <td>{t.source} → {t.destination}</td>
-                <td>{vehicle ? vehicle.registration_number : '—'}</td>
-                <td>{driver ? driver.name : '—'}</td>
-                <td>{t.cargo_weight}kg</td>
-                <td>
-                  <span className={'status-badge status-' + t.status.toLowerCase()}>
-                    {t.status}
-                  </span>
-                </td>
-                <td>
-                  {t.status === 'Dispatched' ? (
-                    <>
-                      <button onClick={() => handleComplete(t)}>Complete</button>
-                      <button onClick={() => handleCancel(t)}>Cancel</button>
-                    </>
-                  ) : null}
-                </td>
+      {trips.length === 0 ? (
+        <div className="empty-state">No trips yet — create your first one above.</div>
+      ) : (
+        <div className="card">
+          <table className="trips-table">
+            <thead>
+              <tr>
+                <th>Route</th>
+                <th>Vehicle</th>
+                <th>Driver</th>
+                <th>Cargo</th>
+                <th>Status</th>
+                <th>Actions</th>
               </tr>
-            );
-          })}
-        </tbody>
-      </table>
+            </thead>
+            <tbody>
+              {trips.map((t) => {
+                const vehicle = getAll('vehicles').find((v) => v.id === t.vehicle_id);
+                const driver = getAll('drivers').find((d) => d.id === t.driver_id);
+                return (
+                  <tr key={t.id}>
+                    <td>{t.source} → {t.destination}</td>
+                    <td>{vehicle ? vehicle.registration_number : '—'}</td>
+                    <td>{driver ? driver.name : '—'}</td>
+                    <td>{t.cargo_weight}kg</td>
+                    <td>
+                      <span className={'status-badge status-' + t.status.toLowerCase()}>
+                        {t.status}
+                      </span>
+                    </td>
+                    <td>
+                      {t.status === 'Dispatched' ? (
+                        <>
+                          <button className="btn btn-secondary" onClick={() => handleComplete(t)}>Complete</button>
+                          <button className="btn btn-danger" onClick={() => handleCancel(t)}>Cancel</button>
+                        </>
+                      ) : null}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 }
