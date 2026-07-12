@@ -3,6 +3,7 @@ function VehicleForm() {
     <div>
       <h2>Add Vehicle</h2>
 
+
       <input type="text" placeholder="Registration Number" />
       <br /><br />
 
@@ -29,6 +30,12 @@ function VehicleForm() {
       </select>
 
       <br /><br />
+
+      <input placeholder="Registration Number" />
+      <input placeholder="Vehicle Name" />
+      <input placeholder="Vehicle Type" />
+      <input placeholder="Maximum Capacity" />
+
 
       <button>Add Vehicle</button>
     </div>

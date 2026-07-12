@@ -1,3 +1,12 @@
+
+import Trips from './pages/Trips/Trips';
+import { Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Home from './pages/Home';
+import About from './pages/About';
+import FuelLogs from './pages/FuelLogs/FuelLogs';
+import Maintenance from './pages/Maintenance/Maintenance';
+
 import { Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
@@ -14,8 +23,11 @@ import MainFeature from "./pages/MainFeature/MainFeature";
 import FuelLogs from "./pages/FuelLogs/FuelLogs";
 import Maintenance from "./pages/Maintenance/Maintenance";
 
+
 import Vehicles from "./pages/MainFeature/Vehicles/Vehicles";
 import Drivers from "./pages/MainFeature/Drivers/Drivers";
+=======
+
 
 export default function App() {
   return (
@@ -23,7 +35,17 @@ export default function App() {
       <Navbar brand="Team Name" />
 
       <Routes>
+
         {/* Public Routes */}
+
+
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+
+        <Route path="/trips" element={<Trips />} />
+        <Route path="/fuel-logs" element={<FuelLogs />} />
+        <Route path="/maintenance" element={<Maintenance />} />
+
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
 
@@ -90,6 +112,7 @@ export default function App() {
             </ProtectedRoute>
           }
         />
+
       </Routes>
     </>
   );

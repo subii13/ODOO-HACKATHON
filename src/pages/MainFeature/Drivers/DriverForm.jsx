@@ -3,6 +3,7 @@ function DriverForm() {
     <div>
       <h2>Add Driver</h2>
 
+
       <input type="text" placeholder="Driver Name" />
       <br /><br />
 
@@ -29,6 +30,11 @@ function DriverForm() {
       </select>
 
       <br /><br />
+
+      <input placeholder="Driver Name" />
+      <input placeholder="License Number" />
+      <input placeholder="License Expiry Date" />
+
 
       <button>Add Driver</button>
     </div>
