@@ -113,3 +113,9 @@
 
 .mb-2 { margin-bottom: var(--space-2); }
 .mb-4 { margin-bottom: var(--space-4); }
+
+/* ---------- Date input icon fix for dark theme ---------- */
+.form-field input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
