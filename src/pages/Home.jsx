@@ -1,82 +1,31 @@
-import { useEffect, useState } from 'react';
-import Card from '../components/Card';
-import Button from '../components/Button';
-import FormInput from '../components/FormInput';
-import { getAll, create, remove } from '../utils/api';
-import { validateForm, required, minLength } from '../utils/validate';
-
-const COLLECTION = 'items';
-
-// This page is a working example wiring every piece together:
-// form -> validation -> save -> dynamic list render -> delete.
-// Delete this and build your real feature once the problem drops —
-// but copy the pattern.
+import { Link } from "react-router-dom";
+import Card from "../components/Card";
 
 export default function Home() {
-  const [items, setItems] = useState([]);
-  const [values, setValues] = useState({ title: '' });
-  const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    setItems(getAll(COLLECTION));
-  }, []);
-
-  function handleChange(e) {
-    setValues({ ...values, [e.target.name]: e.target.value });
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    const schema = { title: [required, minLength(3)] };
-    const fieldErrors = validateForm(values, schema);
-    setErrors(fieldErrors);
-    if (Object.keys(fieldErrors).length > 0) return;
-
-    setLoading(true);
-    const newItem = create(COLLECTION, { title: values.title });
-    setItems((prev) => [...prev, newItem]);
-    setValues({ title: '' });
-    setLoading(false);
-  }
-
-  function handleDelete(id) {
-    remove(COLLECTION, id);
-    setItems((prev) => prev.filter((item) => item.id !== id));
-  }
-
   return (
     <div className="page">
-      <h1>Hackathon Starter</h1>
-      <p>Example CRUD flow — form, validation, dynamic list, delete. Replace with your real feature.</p>
+      <h1>TransitOps</h1>
+      <p>Real-time fleet operations management for logistics companies — from dispatch to delivery.</p>
 
-      <Card className="mb-4">
-        <form onSubmit={handleSubmit}>
-          <FormInput
-            label="Item title"
-            name="title"
-            value={values.title}
-            onChange={handleChange}
-            error={errors.title}
-            placeholder="e.g. Build login page"
-          />
-          <Button type="submit" loading={loading}>Add item</Button>
-        </form>
-      </Card>
+      <div className="card mb-4">
+        <h2>Get Started</h2>
+        <p>Manage your fleet from one place: register vehicles and drivers, dispatch trips, and track fuel and maintenance in real time.</p>
+        <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+          <Link to="/vehicles" className="btn btn-primary">Manage Vehicles</Link>
+          <Link to="/drivers" className="btn btn-primary">Manage Drivers</Link>
+          <Link to="/trips" className="btn btn-primary">Dispatch a Trip</Link>
+        </div>
+      </div>
 
-      <h2>Items ({items.length})</h2>
-      {items.length === 0 ? (
-        <div className="empty-state">No items yet. Add your first one above.</div>
-      ) : (
-        items.map((item) => (
-          <Card key={item.id} className="mb-2">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span>{item.title}</span>
-              <Button variant="danger" onClick={() => handleDelete(item.id)}>Delete</Button>
-            </div>
-          </Card>
-        ))
-      )}
+      <div className="card">
+        <h2>What TransitOps Does</h2>
+        <ul>
+          <li>Register and track vehicles and drivers</li>
+          <li>Create and dispatch trips with automatic business rule checks</li>
+          <li>Prevents double-booking, overweight cargo, and expired-license assignments</li>
+          <li>Log fuel usage and maintenance per vehicle</li>
+        </ul>
+      </div>
     </div>
   );
 }
