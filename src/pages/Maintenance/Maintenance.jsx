@@ -27,40 +27,57 @@ export default function Maintenance() {
   };
 
   return (
-    <div>
-      <h2>Maintenance Records</h2>
-      <form onSubmit={handleSubmit}>
-        <select value={vehicleId} onChange={(e) => setVehicleId(e.target.value)}>
-          <option value="">Select Vehicle</option>
-          {dummyVehicles.map((v) => (
-            <option key={v.id} value={v.id}>{v.registrationNumber} - {v.type}</option>
-          ))}
-        </select>
-        <input
-          type="text"
-          placeholder="Description (e.g. Oil change)"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <input
-          type="date"
-          value={scheduledAt}
-          onChange={(e) => setScheduledAt(e.target.value)}
-        />
-        <button type="submit">Add Maintenance Record</button>
-      </form>
+    <div className="page">
+      <h1>Maintenance Records</h1>
 
-      <h3>Existing Records</h3>
+      <div className="card mb-4">
+        <form onSubmit={handleSubmit}>
+          <div className="form-field">
+            <label>Vehicle</label>
+            <select value={vehicleId} onChange={(e) => setVehicleId(e.target.value)}>
+              <option value="">Select Vehicle</option>
+              {dummyVehicles.map((v) => (
+                <option key={v.id} value={v.id}>{v.registrationNumber} - {v.type}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="form-field">
+            <label>Description</label>
+            <input
+              type="text"
+              placeholder="e.g. Oil change"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </div>
+
+          <div className="form-field">
+            <label>Scheduled Date</label>
+            <input
+              type="date"
+              value={scheduledAt}
+              onChange={(e) => setScheduledAt(e.target.value)}
+            />
+          </div>
+
+          <button type="submit" className="btn btn-primary">Add Maintenance Record</button>
+        </form>
+      </div>
+
+      <h2>Existing Records</h2>
       {records.length === 0 ? (
-        <p>No maintenance records yet — add your first one above.</p>
+        <div className="empty-state">No maintenance records yet — add your first one above.</div>
       ) : (
-        <ul>
-          {records.map((r) => (
-            <li key={r.id}>
-              {r.description} — Vehicle {r.vehicleId} — Status: {r.status} — Scheduled: {r.scheduledAt}
-            </li>
-          ))}
-        </ul>
+        <div className="card">
+          <ul>
+            {records.map((r) => (
+              <li key={r.id}>
+                {r.description} — Vehicle {r.vehicleId} — Status: {r.status} — Scheduled: {r.scheduledAt}
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
     </div>
   );

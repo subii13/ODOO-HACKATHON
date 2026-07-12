@@ -27,29 +27,46 @@ export default function FuelLogs() {
   };
 
   return (
-    <div>
-      <h2>Fuel Logs</h2>
-      <form onSubmit={handleSubmit}>
-        <select value={tripId} onChange={(e) => setTripId(e.target.value)}>
-          <option value="">Select Trip</option>
-          {dummyTrips.map((t) => (
-            <option key={t.id} value={t.id}>{t.id} - {t.status}</option>
-          ))}
-        </select>
-        <input type="number" placeholder="Amount (Liters)" value={amount} onChange={(e) => setAmount(e.target.value)} />
-        <input type="number" placeholder="Cost" value={cost} onChange={(e) => setCost(e.target.value)} />
-        <button type="submit">Add Fuel Log</button>
-      </form>
+    <div className="page">
+      <h1>Fuel Logs</h1>
 
-      <h3>Existing Logs</h3>
+      <div className="card mb-4">
+        <form onSubmit={handleSubmit}>
+          <div className="form-field">
+            <label>Trip</label>
+            <select value={tripId} onChange={(e) => setTripId(e.target.value)}>
+              <option value="">Select Trip</option>
+              {dummyTrips.map((t) => (
+                <option key={t.id} value={t.id}>{t.id} - {t.status}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="form-field">
+            <label>Amount (Liters)</label>
+            <input type="number" placeholder="e.g. 50" value={amount} onChange={(e) => setAmount(e.target.value)} />
+          </div>
+
+          <div className="form-field">
+            <label>Cost (₹)</label>
+            <input type="number" placeholder="e.g. 4500" value={cost} onChange={(e) => setCost(e.target.value)} />
+          </div>
+
+          <button type="submit" className="btn btn-primary">Add Fuel Log</button>
+        </form>
+      </div>
+
+      <h2>Existing Logs</h2>
       {logs.length === 0 ? (
-        <p>No fuel logs yet — add your first one above.</p>
+        <div className="empty-state">No fuel logs yet — add your first one above.</div>
       ) : (
-        <ul>
-          {logs.map((log) => (
-            <li key={log.id}>Trip {log.tripId}: {log.amountLiters}L, ₹{log.cost}</li>
-          ))}
-        </ul>
+        <div className="card">
+          <ul>
+            {logs.map((log) => (
+              <li key={log.id}>Trip {log.tripId}: {log.amountLiters}L, ₹{log.cost}</li>
+            ))}
+          </ul>
+        </div>
       )}
     </div>
   );
