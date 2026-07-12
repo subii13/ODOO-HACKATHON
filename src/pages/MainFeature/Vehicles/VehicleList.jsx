@@ -1,22 +1,22 @@
-function VehicleList() {
-  const vehicles = [
-    {
-      registrationNumber: "TN01AB1234",
-      vehicleName: "Van-05",
-      type: "Van",
-      capacity: 500
-    }
-  ];
+import { getAll } from "../../../utils/api";
+
+function VehicleList({ refreshKey }) {
+  const vehicles = getAll("vehicles");
 
   return (
     <div>
       <h2>Vehicle List</h2>
-
-      {vehicles.map((vehicle, index) => (
-        <div key={index}>
-          {vehicle.registrationNumber} - {vehicle.vehicleName}
+      {vehicles.length === 0 ? (
+        <div className="empty-state">No vehicles yet — add your first one above.</div>
+      ) : (
+        <div className="card">
+          {vehicles.map((v) => (
+            <div key={v.id} className="mb-2">
+              {v.registration_number} — {v.name} ({v.type}, max {v.max_load_capacity}kg) — Status: {v.status}
+            </div>
+          ))}
         </div>
-      ))}
+      )}
     </div>
   );
 }
